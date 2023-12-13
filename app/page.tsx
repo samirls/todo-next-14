@@ -1,95 +1,70 @@
-import Image from 'next/image'
-import styles from './page.module.css'
+/* eslint-disable react/no-unescaped-entities */
+"use client";
+
+import styles from "./page.module.css";
+import { Box } from "@chakra-ui/react";
+import {
+  List,
+  ListItem,
+  ListIcon,
+  OrderedList,
+  UnorderedList,
+} from "@chakra-ui/react";
+import { MdCheckCircle } from "react-icons/md";
 
 export default function Home() {
   return (
     <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>app/page.tsx</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
-
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore starter templates for Next.js.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
+      <Box
+        fontSize="2rem"
+        fontWeight="500"
+        display="flex"
+        justifyContent="center"
+        pt="50px"
+      >
+        Welcome!
+      </Box>
+      <Box fontSize="1.3rem" display="flex" justifyContent="center">
+        This is a WebApp to help organize your family's tasks. What needs to be
+        done? Write it here, and everyone will know!
+      </Box>
+      <Box
+        fontSize="1.5rem"
+        fontWeight="500"
+        display="flex"
+        justifyContent="center"
+        pt="50px"
+      >
+        What does this app do?
+      </Box>
+      <List
+        spacing={3}
+        fontSize="1.5rem"
+        display="flex"
+        justifyContent="center"
+        textAlign="justify"
+      >
+        <Box>
+          <ListItem>
+            <ListIcon as={MdCheckCircle} color="green.500" />
+            You can organize your family's tasks in this app, such as "buy
+            butter at the grocery store."
+          </ListItem>
+          <ListItem>
+            <ListIcon as={MdCheckCircle} color="green.500" />
+            Add family members to the app so they can read, write, or delete
+            tasks.
+          </ListItem>
+          <ListItem>
+            <ListIcon as={MdCheckCircle} color="green.500" />
+            Say goodbye to notes on the fridge or paper shopping lists!
+          </ListItem>
+          <ListItem>
+            <ListIcon as={MdCheckCircle} color="green.500" />
+            Don't forget to open the app and check the tasks daily!
+          </ListItem>
+        </Box>
+      </List>
     </main>
-  )
+  );
 }
