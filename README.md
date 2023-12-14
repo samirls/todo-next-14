@@ -1,6 +1,6 @@
 <h1>Todo list made with Next.js 14, app folder.</h1>
 
-schemas:
+Schemas:
 
 CREATE TABLE todo_users (
     user_id SERIAL PRIMARY KEY,
