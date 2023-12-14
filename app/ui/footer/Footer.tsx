@@ -11,7 +11,7 @@ function Footer() {
       position="fixed"
       bottom={0}
       width="100vw"
-      height="100px"
+      height={{base: '70px', lg:"100px"}}
       bg="gray.100"
       display="flex"
       flexDir="column"

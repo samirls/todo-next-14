@@ -2,7 +2,7 @@
 import { sql } from "@vercel/postgres";
 import { revalidatePath } from "next/cache";
 
-export async function createTask(task:string) {
+export async function createTask(task: string) {
   //throw new Error('Failed on purpose');
 
   try {
@@ -19,12 +19,31 @@ export async function createTask(task:string) {
 }
 
 export async function deleteTask(id: number) {
-
   try {
     await sql`DELETE FROM todo_tasks WHERE task_id = ${id}`;
-    revalidatePath('/tasks');
-    return { message: 'Task deleted.' };
+    revalidatePath("/tasks");
+    return { message: "Task deleted." };
   } catch (error) {
-    return { message: 'Database Error.' };
+    return { message: "Database Error." };
   }
+}
+
+export async function editTask(id: number, editedTask: string) {
+  if (editedTask === "") {
+    return {
+      message: "Missing Fields. Failed to Edit Task.",
+    };
+  }
+
+  try {
+    await sql`
+      UPDATE todo_tasks
+      SET task = ${editedTask}
+      WHERE task_id = ${id}
+    `;
+  } catch (error) {
+    return { message: "Database Error." };
+  }
+
+  revalidatePath("/tasks");
 }

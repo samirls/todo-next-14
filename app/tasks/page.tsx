@@ -8,17 +8,17 @@ async function Tasks() {
   const fetchedTasks = await fetchTasks();
 
   return (
-    <Box>
+    <Box pb={{base: '110px', lg:"150px"}}>
       <Box
         fontSize="2rem"
         fontWeight="500"
         display="flex"
         justifyContent="center"
-        pt="50px"
+        pt={{ base: "150px", lg: "170px" }}
       >
         Tasks
       </Box>
-      <Box pl='100px' py='10px'>
+      <Box pl={{base: '10px', lg:'100px'}} py='10px'>
         <AddTaskModal />
       </Box>
       <Box >

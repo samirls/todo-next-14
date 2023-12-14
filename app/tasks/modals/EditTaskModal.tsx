@@ -1,5 +1,6 @@
 "use client";
 
+import { editTask } from "@/app/lib/actions";
 import {
   Button,
   FormControl,
@@ -12,11 +13,11 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
+  useMediaQuery,
   useToast,
 } from "@chakra-ui/react";
-import React, { useState } from "react";
-import { IoMdAddCircle } from "react-icons/io";
-import { createTask, deleteTask } from "@/app/lib/actions";
+import React, { useEffect, useState } from "react";
+import { ChangeEvent, FormEvent } from "react";
 
 interface TaskProps {
   task: singleTask;
@@ -31,25 +32,47 @@ interface singleTask {
 }
 
 function EditTaskModal({task, isOpen, onClose}:TaskProps) {
-
+  const [isLargerThan800] = useMediaQuery('(min-width: 992px)')
   const initialRef = React.useRef(null);
   const finalRef = React.useRef(null);
   const [isLoading, setIsLoading] = useState(false);
   const toast = useToast();
 
-  const handleDeleteTask = async () => {
+  const [editedTask, setEditedTask] = useState(task.task);
+
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setEditedTask(event.target.value);
+  };
+
+  const handleSubmit = async (event: FormEvent) => {
+    event.preventDefault();
+    if (editedTask === "") {
+      return toast({
+          title: 'Task must have a description',
+          position: 'top',
+          status: 'error',
+          duration: 5000,
+          isClosable: true,
+        })
+    }
     setIsLoading(true)
-    await deleteTask(task.task_id);
+
+    await editTask(task.task_id, editedTask);
+
     setIsLoading(false)
     toast({
-      title: 'Task Deleted!',
+      title: 'Task Edited!',
       position: 'top',
       status: 'success',
       duration: 4000,
       isClosable: true,
     })
+    onClose();
   };
 
+  useEffect(() => {
+    setEditedTask(task.task)
+  }, [task.task, isOpen])
 
   return (
     <>
@@ -59,20 +82,27 @@ function EditTaskModal({task, isOpen, onClose}:TaskProps) {
         isOpen={isOpen}
         onClose={onClose}
         isCentered
+        size={isLargerThan800 ? 'xl' : 'xs'}
       >
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Are you sure you want to delete this Task?</ModalHeader>
+          <ModalHeader>Edit Task</ModalHeader>
           <ModalCloseButton />
           <ModalBody pb={6}>
-            <FormControl>
-              <FormLabel>{task.task}</FormLabel>
+          <FormControl>
+              <FormLabel>New Description</FormLabel>
+              <Input
+                ref={initialRef}
+                onChange={handleChange}
+                value={editedTask}
+                required
+              />
             </FormControl>
           </ModalBody>
 
           <ModalFooter>
-            <Button colorScheme="red" mr={3} isLoading={isLoading} loadingText='Deleting' onClick={handleDeleteTask}>
-              Delete
+            <Button colorScheme="purple" mr={3} isLoading={isLoading} loadingText='Editing' onClick={handleSubmit}>
+              Edit
             </Button>
             <Button onClick={onClose}>Cancel</Button>
           </ModalFooter>

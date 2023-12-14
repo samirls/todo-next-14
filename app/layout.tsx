@@ -7,8 +7,8 @@ import Footer from "./ui/footer/Footer";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Todo list next 14",
-  description: "Todo list next 14",
+  title: "Task list next 14",
+  description: "Task list next 14",
 };
 
 export default function RootLayout({

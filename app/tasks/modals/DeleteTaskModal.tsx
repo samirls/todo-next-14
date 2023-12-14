@@ -4,7 +4,6 @@ import {
   Button,
   FormControl,
   FormLabel,
-  Input,
   Modal,
   ModalBody,
   ModalCloseButton,
@@ -12,11 +11,11 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
+  useMediaQuery,
   useToast,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
-import { IoMdAddCircle } from "react-icons/io";
-import { createTask, deleteTask } from "@/app/lib/actions";
+import { deleteTask } from "@/app/lib/actions";
 
 interface TaskProps {
   task: singleTask;
@@ -31,7 +30,7 @@ interface singleTask {
 }
 
 function DeleteTaskModal({task, isOpen, onClose}:TaskProps) {
-
+  const [isLargerThan800] = useMediaQuery('(min-width: 992px)')
   const initialRef = React.useRef(null);
   const finalRef = React.useRef(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -59,6 +58,7 @@ function DeleteTaskModal({task, isOpen, onClose}:TaskProps) {
         isOpen={isOpen}
         onClose={onClose}
         isCentered
+        size={isLargerThan800 ? 'xl' : 'xs'}
       >
         <ModalOverlay />
         <ModalContent>

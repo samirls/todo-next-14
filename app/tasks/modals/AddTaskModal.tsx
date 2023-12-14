@@ -20,8 +20,10 @@ import React, { useState } from "react";
 import { IoMdAddCircle } from "react-icons/io";
 import { createTask } from "@/app/lib/actions";
 import { ChangeEvent, FormEvent } from "react";
+import { useMediaQuery } from '@chakra-ui/react'
 
 function AddTaskModal() {
+  const [isLargerThan800] = useMediaQuery('(min-width: 992px)')
   const initialRef = React.useRef(null);
   const finalRef = React.useRef(null);
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -36,21 +38,30 @@ function AddTaskModal() {
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
-    setIsLoading(true)
-    // Your form submission logic here
-    await createTask(task);
 
-    // Clear the form after submission
-    setIsLoading(false)
+    if (task === "") {
+      return toast({
+        title: "Task must have a description",
+        position: "top",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+      });
+    }
+
+    setIsLoading(true);
+    await createTask(task);
+    setIsLoading(false);
     setTask("");
     toast({
-      title: 'Task Added!',
-      position: 'top',
+      title: "Task Added!",
+      position: "top",
       description: "Add another one.",
-      status: 'success',
+      status: "success",
       duration: 4000,
       isClosable: true,
-    })
+    });
+    onClose();
   };
 
   return (
@@ -69,6 +80,7 @@ function AddTaskModal() {
         isOpen={isOpen}
         onClose={onClose}
         isCentered
+        size={isLargerThan800 ? 'xl' : 'xs'}
       >
         <ModalOverlay />
         <ModalContent>
@@ -76,7 +88,7 @@ function AddTaskModal() {
           <ModalCloseButton />
           <ModalBody pb={6}>
             <FormControl>
-              <FormLabel>Description</FormLabel>
+              <FormLabel>Description:</FormLabel>
               <Input
                 ref={initialRef}
                 placeholder="Need to buy some fruits for breakfast"
@@ -87,7 +99,13 @@ function AddTaskModal() {
           </ModalBody>
 
           <ModalFooter>
-            <Button colorScheme="green" mr={3} isLoading={isLoading} loadingText='Submitting' onClick={handleSubmit}>
+            <Button
+              colorScheme="green"
+              mr={3}
+              isLoading={isLoading}
+              loadingText="Submitting"
+              onClick={handleSubmit}
+            >
               Create
             </Button>
             <Button onClick={onClose}>Cancel</Button>
