@@ -15,14 +15,14 @@ export async function createTask(task:string) {
       message: "Database Error. Failed to insert task.",
     };
   }
-  revalidatePath("/todos");
+  revalidatePath("/tasks");
 }
 
 export async function deleteTask(id: number) {
 
   try {
     await sql`DELETE FROM todo_tasks WHERE task_id = ${id}`;
-    revalidatePath('/todos');
+    revalidatePath('/tasks');
     return { message: 'Task deleted.' };
   } catch (error) {
     return { message: 'Database Error.' };

@@ -25,8 +25,8 @@ export default function Home() {
         Welcome!
       </Box>
       <Box fontSize="1.3rem" display="flex" justifyContent="center">
-        This is a WebApp to help organize your family's tasks. What needs to be
-        done? Write it here, and everyone will know!
+        This is a WebApp to help organize your Tasks. What needs to be
+        done? Write it here, and everyone you invite will know!
       </Box>
       <Box
         fontSize="1.5rem"
@@ -35,7 +35,7 @@ export default function Home() {
         justifyContent="center"
         pt="50px"
       >
-        What does this app do?
+        What does this App do?
       </Box>
       <List
         spacing={3}
@@ -47,13 +47,13 @@ export default function Home() {
         <Box>
           <ListItem>
             <ListIcon as={MdCheckCircle} color="green.500" />
-            You can organize your family's tasks in this app, such as "buy
+            You can organize your family's Tasks in this App, such as "buy
             butter at the grocery store."
           </ListItem>
           <ListItem>
             <ListIcon as={MdCheckCircle} color="green.500" />
-            Add family members to the app so they can read, write, or delete
-            tasks.
+            Add members to the App so they can read, write, or delete
+            Tasks.
           </ListItem>
           <ListItem>
             <ListIcon as={MdCheckCircle} color="green.500" />
@@ -61,7 +61,7 @@ export default function Home() {
           </ListItem>
           <ListItem>
             <ListIcon as={MdCheckCircle} color="green.500" />
-            Don't forget to open the app and check the tasks daily!
+            Don't forget to open the App and check the Tasks daily!
           </ListItem>
         </Box>
       </List>

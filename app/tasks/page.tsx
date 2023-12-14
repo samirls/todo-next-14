@@ -4,10 +4,8 @@ import { Box, Button, useDisclosure } from "@chakra-ui/react";
 import Task from "./Task";
 import AddTaskModal from "./modals/AddTaskModal";
 
-async function Todos() {
+async function Tasks() {
   const fetchedTasks = await fetchTasks();
-
-  console.log(fetchedTasks);
 
   return (
     <Box>
@@ -32,4 +30,4 @@ async function Todos() {
   );
 }
 
-export default Todos;
+export default Tasks;
