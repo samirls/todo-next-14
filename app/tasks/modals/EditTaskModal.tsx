@@ -29,6 +29,7 @@ interface singleTask {
   task_id: number;
   task: string;
   user_id: number;
+  user_name: string;
 }
 
 function EditTaskModal({task, isOpen, onClose}:TaskProps) {

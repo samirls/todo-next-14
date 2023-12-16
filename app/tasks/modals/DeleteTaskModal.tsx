@@ -27,6 +27,7 @@ interface singleTask {
   task_id: number;
   task: string;
   user_id: number;
+  user_name: string;
 }
 
 function DeleteTaskModal({task, isOpen, onClose}:TaskProps) {

@@ -15,7 +15,8 @@ CREATE TABLE todo_users (
 CREATE TABLE todo_tasks (
     task_id SERIAL PRIMARY KEY,
     task VARCHAR(255) NOT NULL,
-    user_id INT REFERENCES todo_users(user_id) ON DELETE CASCADE
+    user_id INT REFERENCES todo_users(user_id) ON DELETE CASCADE,
+    user_name VARCHAR(50) NOT NULL
 );
 
 CREATE TABLE todo_permissions (

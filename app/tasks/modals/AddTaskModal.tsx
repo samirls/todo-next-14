@@ -22,7 +22,13 @@ import { createTask } from "@/app/lib/actions";
 import { ChangeEvent, FormEvent } from "react";
 import { useMediaQuery } from '@chakra-ui/react'
 
-function AddTaskModal() {
+interface AddTaskModalProps {
+  user_id: number | undefined | null;
+  user_name: string | undefined | null;
+}
+
+function AddTaskModal({user_id, user_name}:AddTaskModalProps) {
+
   const [isLargerThan800] = useMediaQuery('(min-width: 992px)')
   const initialRef = React.useRef(null);
   const finalRef = React.useRef(null);
@@ -50,7 +56,7 @@ function AddTaskModal() {
     }
 
     setIsLoading(true);
-    await createTask(task);
+    await createTask(task, user_id, user_name);
     setIsLoading(false);
     setTask("");
     toast({
