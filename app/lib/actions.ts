@@ -43,13 +43,17 @@ export async function register(name: string, email: string, password: string, se
   }
 }
 
-export async function createTask(task: string, user_id: number | undefined | null, user_name: string | undefined | null) {
+
+////////////////////////////////////////////////////////////////////////////////////////////
+
+
+export async function createTask(task: string, user_id: number | undefined | null) {
   //throw new Error('Failed on purpose');
 
   try {
     await sql`
-    INSERT INTO todo_tasks (task, user_id, user_name)
-    VALUES (${task}, ${user_id}, ${user_name})
+    INSERT INTO todo_tasks (task, user_id)
+    VALUES (${task}, ${user_id})
   `;
   } catch (error) {
     return {
@@ -88,3 +92,49 @@ export async function editTask(id: number, editedTask: string) {
 
   revalidatePath("/tasks");
 }
+
+export async function shareTask(task_id_link: number, user_id_link: number[]) {
+  try {
+    await sql`
+    INSERT INTO todo_user_task_link (task_id_link, user_id_link)
+    VALUES (${task_id_link}, ${user_id_link.join(',')});
+  `;
+  } catch (error) {
+    return {
+      message: "Database Error. Failed to share task.",
+    };
+  }
+  revalidatePath("/tasks");
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////
+
+
+export async function addFriend(user_id: number | undefined, added_friend_id: number) {
+  try {
+    await sql`
+    INSERT INTO todo_friends (user_id, added_friend_id)
+    VALUES (${user_id}, ${added_friend_id});
+  `;
+  } catch (error) {
+    return {
+      message: "Database Error. Failed to insert task.",
+    };
+  }
+  revalidatePath("/friends");
+}
+
+export async function deleteFriend(user_id: number | undefined, added_friend_id: number) {
+  try {
+    await sql`
+    DELETE FROM todo_friends
+    WHERE user_id = ${user_id} AND added_friend_id = ${added_friend_id};
+    `;
+    revalidatePath("/tasks");
+    return { message: "Task deleted." };
+  } catch (error) {
+    return { message: "Database Error." };
+  }
+}
+
+

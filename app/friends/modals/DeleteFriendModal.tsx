@@ -1,9 +1,8 @@
 "use client";
 
 import {
+  Box,
   Button,
-  FormControl,
-  FormLabel,
   Modal,
   ModalBody,
   ModalCloseButton,
@@ -15,31 +14,32 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
-import { deleteTask } from "@/app/lib/actions";
+import { deleteFriend } from "@/app/lib/actions";
 
-interface TaskProps {
-  task: singleTask;
+interface FriendProps {
   isOpen: boolean;
   onClose: () => void;
+  friend: singleFriend;
+  loggedUserId: number | undefined;
 }
 
-interface singleTask {
-  task_id: number;
-  task: string;
-  task_user_id: number;
-  task_user_name: string;
+interface singleFriend {
+  user_id: number;
+  name: string;
 }
 
-function DeleteTaskModal({task, isOpen, onClose}:TaskProps) {
+function DeleteFriendModal({isOpen, onClose, friend, loggedUserId}:FriendProps) {
   const [isLargerThan800] = useMediaQuery('(min-width: 992px)')
   const initialRef = React.useRef(null);
   const finalRef = React.useRef(null);
   const [isLoading, setIsLoading] = useState(false);
   const toast = useToast();
 
+  console.log(friend)
+
   const handleDeleteTask = async () => {
     setIsLoading(true)
-    await deleteTask(task.task_id);
+    await deleteFriend(loggedUserId, friend.user_id);
     setIsLoading(false)
     toast({
       title: 'Task Deleted!',
@@ -49,7 +49,6 @@ function DeleteTaskModal({task, isOpen, onClose}:TaskProps) {
       isClosable: true,
     })
   };
-
 
   return (
     <>
@@ -63,12 +62,15 @@ function DeleteTaskModal({task, isOpen, onClose}:TaskProps) {
       >
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Are you sure you want to delete this Task?</ModalHeader>
+          <ModalHeader>Delete Friend</ModalHeader>
           <ModalCloseButton />
           <ModalBody pb={6}>
-            <FormControl>
-              <FormLabel>{task.task}</FormLabel>
-            </FormControl>
+            <Box>
+              Are you sure to delete {friend.name.toUpperCase()} from your friends?
+            </Box>
+            <Box>
+              Note: it will not remove him from the assigned tasks.
+            </Box>
           </ModalBody>
 
           <ModalFooter>
@@ -83,4 +85,4 @@ function DeleteTaskModal({task, isOpen, onClose}:TaskProps) {
   );
 }
 
-export default DeleteTaskModal;
+export default DeleteFriendModal;

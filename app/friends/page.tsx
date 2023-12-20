@@ -1,18 +1,19 @@
+import {
+  Box,
+} from "@chakra-ui/react";
 import React from "react";
-import { fetchFriends, fetchTasks } from "../lib/data";
-import { Box } from "@chakra-ui/react";
-import Task from "./Task";
-import AddTaskModal from "./modals/AddTaskModal";
+import AddFriendModal from './modals/AddFriendModal'
 import { GiCardboardBox } from "react-icons/gi";
+import Friend from "./Friend";
+import { fetchFriends } from "../lib/data";
 import { auth, getUser } from "@/auth";
-import { fetchLinkTable } from "../lib/data";
 
-async function Tasks() {
+async function Friends() {
 
   const session = await auth();
   const userEmail = session?.user?.email;
 
-  let allUserData;
+  let allUserData:any;
 
   if (userEmail) {
     allUserData = await getUser(userEmail);
@@ -21,35 +22,22 @@ async function Tasks() {
     console.log("Email não está definido na sessão.");
   }
 
-  const fetchedTasks = await fetchTasks(allUserData?.user_id);
-
-  console.log(fetchedTasks)
-
-  ///////////////////////////////////////////////////////////////////////////
-
   const fetchedFriends = await fetchFriends(allUserData?.user_id);
 
   console.log(fetchedFriends)
 
-
-  ///////////////////////////////////////////////////////////////////////////
-
-  const fetchedTasksIds = fetchedTasks.map((task) => task.task_id);
-
-  const fetchedLinkTable = await fetchLinkTable(fetchedTasksIds)
-
-  console.log(fetchedLinkTable)
-
-
   return (
-    <Box pb={{ base: "110px", lg: "150px" }} pt={{ base: "150px", lg: "170px" }}>
+    <Box
+      pb={{ base: "110px", lg: "150px" }}
+      pt={{ base: "150px", lg: "170px" }}
+    >
       <Box
         fontSize="2rem"
         fontWeight="500"
         display="flex"
         justifyContent="center"
       >
-        Tasks
+        Friends
       </Box>
       <Box
         fontSize="1.5rem"
@@ -60,18 +48,18 @@ async function Tasks() {
         Hello {allUserData?.name.toUpperCase()}, your Id is: {allUserData?.user_id}
       </Box>
       <Box pl={{ base: "10px", lg: "100px" }} py="10px">
-        <AddTaskModal user_id={allUserData?.user_id} user_name={allUserData?.name}/>
+        <AddFriendModal userId={allUserData?.user_id}/>
       </Box>
       <Box>
-        {fetchedTasks.map((task) => (
-          <Task key={task.task_id} task={task} friends={fetchedFriends} fetchedLinkTable={fetchedLinkTable}/>
+        {fetchedFriends.map((friend, index) => (
+          <Friend key={index} friend={friend} loggedUserId={allUserData?.user_id}/>
         ))}
-        {fetchedTasks.length === 0 && (
+        {fetchedFriends.length === 0 && (
           <Box display='flex' justifyContent='center' alignItems='center' flexDir='column' height='400px'>
             <Box fontSize="4rem">
               <GiCardboardBox />
             </Box>
-            <Box>Empty</Box>
+            <Box>You have no friends yet, add one!</Box>
           </Box>
         )}
       </Box>
@@ -79,4 +67,4 @@ async function Tasks() {
   );
 }
 
-export default Tasks;
+export default Friends;

@@ -1,7 +1,7 @@
 import React from "react";
 import { signOut } from "@/auth";
 import { Button } from "@chakra-ui/react";
-
+import { redirect } from "next/navigation";
 
 async function Logout() {
 

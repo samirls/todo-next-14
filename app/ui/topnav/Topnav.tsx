@@ -2,17 +2,15 @@
 
 import { Link } from "@chakra-ui/next-js";
 import { Box, Button } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import DrawerComponent from "./DrawerComponent";
 import { FcTodoList } from "react-icons/fc";
+import { auth } from "@/auth";
+import { usePathname } from "next/navigation";
 
-interface TopnavProps {
-  userEmail: string | undefined | null;
-}
+function Topnav() {
 
-function Topnav({ userEmail }:TopnavProps) {
-
-  console.log(userEmail);
+  const pathname = usePathname();
 
   return (
     <Box
@@ -29,20 +27,19 @@ function Topnav({ userEmail }:TopnavProps) {
       bg="white"
       zIndex="9"
     >
-      <Link href={!userEmail ? "/" : ''} color="black.900" _hover={{ color: "blue.600" }}>
-        <Box
-          fontSize={{ base: "1.8rem", lg: "2rem" }}
-          fontWeight="700"
-          display="flex"
-          alignItems="center"
-          gap={2}
-        >
-          <FcTodoList />
-          Task List App
-        </Box>
-      </Link>
+      <Box
+        fontSize={{ base: "1.8rem", lg: "2rem" }}
+        fontWeight="700"
+        display="flex"
+        alignItems="center"
+        gap={2}
+      >
+        <FcTodoList />
+        Task List App
+      </Box>
+
       <Box gap={10} fontSize="1.3rem" display={{ base: "none", lg: "flex" }}>
-        {!userEmail && (
+        {(pathname === "/" || pathname === "/login" || pathname === "/register") && (
           <>
             <Link href="/" color="blue.400" _hover={{ color: "blue.600" }}>
               Home
@@ -57,17 +54,30 @@ function Topnav({ userEmail }:TopnavProps) {
             >
               Register
             </Link>
+          </>
+        )}  
+        {(pathname === "/tasks" || pathname === "/friends" || pathname === "/logout") && 
+        (
+          <>
             <Link href="/tasks" color="blue.400" _hover={{ color: "blue.600" }}>
               Tasks
             </Link>
+            <Link
+              href="/friends"
+              color="blue.400"
+              _hover={{ color: "blue.600" }}
+            >
+              Friends
+            </Link>
+            <Link
+              href="/logout"
+              color="blue.400"
+              _hover={{ color: "blue.600" }}
+            >
+              Logout
+            </Link>
           </>
         )}
-        <Link href="/members" color="blue.400" _hover={{ color: "blue.600" }}>
-          Members
-        </Link>
-        <Link href="/logout" color="blue.400" _hover={{ color: "blue.600" }}>
-          Logout
-        </Link>
       </Box>
       <DrawerComponent />
     </Box>

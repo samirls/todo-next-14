@@ -8,7 +8,8 @@ export const authConfig = {
     authorized({ auth, request: { nextUrl } }) {
       const isLoggedIn = !!auth?.user;
       const isOnTasks = nextUrl.pathname.startsWith('/tasks');
-      if (isOnTasks) {
+      const isOnFriends = nextUrl.pathname.startsWith('/friends');
+      if (isOnTasks || isOnFriends) {
         if (isLoggedIn) return true;
         return false; // Redirect unauthenticated users to login page
       } 

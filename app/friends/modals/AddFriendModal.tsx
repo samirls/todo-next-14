@@ -18,49 +18,45 @@ import {
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { IoMdAddCircle } from "react-icons/io";
-import { createTask } from "@/app/lib/actions";
+import { addFriend } from "@/app/lib/actions";
 import { ChangeEvent, FormEvent } from "react";
 import { useMediaQuery } from '@chakra-ui/react'
 
-interface AddTaskModalProps {
-  user_id: number | undefined | null;
-  user_name: string | undefined | null;
+interface AddFriendModalProps {
+  userId: number | undefined;
 }
 
-function AddTaskModal({user_id, user_name}:AddTaskModalProps) {
+function AddFriendModal({userId}:AddFriendModalProps) {
 
   const [isLargerThan800] = useMediaQuery('(min-width: 992px)')
   const initialRef = React.useRef(null);
   const finalRef = React.useRef(null);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [isLoading, setIsLoading] = useState(false);
+  const [addedFriendId, setAddedFriendId] = useState('');
   const toast = useToast();
-
-  const [task, setTask] = useState("");
-
-  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setTask(event.target.value);
-  };
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
 
-    if (task === "") {
+    if (addedFriendId === "") {
       return toast({
-        title: "Task must have a description",
+        title: "Insert the Id of your friend, must be a number",
         position: "top",
         status: "error",
-        duration: 5000,
+        duration: 4000,
         isClosable: true,
       });
     }
 
+    const addedFriendIdAsNumber = parseInt(addedFriendId);
+
     setIsLoading(true);
-    await createTask(task, user_id);
+    await addFriend(userId, addedFriendIdAsNumber);
     setIsLoading(false);
-    setTask("");
+    setAddedFriendId("");
     toast({
-      title: "Task Added!",
+      title: "Friend Added!",
       position: "top",
       description: "Add another one.",
       status: "success",
@@ -78,7 +74,7 @@ function AddTaskModal({user_id, user_name}:AddTaskModalProps) {
         variant="solid"
         onClick={onOpen}
       >
-        New Task
+        Add Friend
       </Button>
       <Modal
         initialFocusRef={initialRef}
@@ -90,16 +86,14 @@ function AddTaskModal({user_id, user_name}:AddTaskModalProps) {
       >
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Create a New Task</ModalHeader>
+          <ModalHeader>Add a New Friend</ModalHeader>
           <ModalCloseButton />
           <ModalBody pb={6}>
             <FormControl>
-              <FormLabel>Description:</FormLabel>
+              <FormLabel>Id:</FormLabel>
               <Input
                 ref={initialRef}
-                placeholder="Need to buy some fruits for breakfast"
-                onChange={handleChange}
-                value={task}
+                onChange={(e) => {setAddedFriendId(e.target.value)}}
               />
             </FormControl>
           </ModalBody>
@@ -112,7 +106,7 @@ function AddTaskModal({user_id, user_name}:AddTaskModalProps) {
               loadingText="Submitting"
               onClick={handleSubmit}
             >
-              Create
+              Add Friend
             </Button>
             <Button onClick={onClose}>Cancel</Button>
           </ModalFooter>
@@ -122,4 +116,4 @@ function AddTaskModal({user_id, user_name}:AddTaskModalProps) {
   );
 }
 
-export default AddTaskModal;
+export default AddFriendModal;
