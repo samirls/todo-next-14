@@ -39,7 +39,7 @@ function Topnav() {
       </Box>
 
       <Box gap={10} fontSize="1.3rem" display={{ base: "none", lg: "flex" }}>
-        {(pathname === "/" || pathname === "/login" || pathname === "/register") && (
+
           <>
             <Link href="/" color="blue.400" _hover={{ color: "blue.600" }}>
               Home
@@ -55,9 +55,8 @@ function Topnav() {
               Register
             </Link>
           </>
-        )}  
-        {(pathname === "/tasks" || pathname === "/friends" || pathname === "/logout") && 
-        (
+
+
           <>
             <Link href="/tasks" color="blue.400" _hover={{ color: "blue.600" }}>
               Tasks
@@ -77,7 +76,7 @@ function Topnav() {
               Logout
             </Link>
           </>
-        )}
+
       </Box>
       <DrawerComponent />
     </Box>

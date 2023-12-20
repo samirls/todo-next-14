@@ -56,7 +56,7 @@ function DrawerComponent() {
               flexDir="column"
               justifyContent="center"
             >
-              {(pathname === "/" || pathname === "/login" || pathname === "/register") && (
+
                 <>
               <Link
                 href="/"
@@ -101,8 +101,8 @@ function DrawerComponent() {
                 Register
               </Link>
               </>
-              )}
-              {(pathname === "/tasks" || pathname === "/friends" || pathname === "/logout") && (
+
+
                 <>
               <Link
                 href="/tasks"
@@ -150,7 +150,7 @@ function DrawerComponent() {
 
 
               </>
-  )}
+
             </Box>
           </DrawerBody>
         </DrawerContent>
