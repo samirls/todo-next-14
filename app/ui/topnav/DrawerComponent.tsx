@@ -12,9 +12,10 @@ import { usePathname } from "next/navigation";
 import { Link } from "@chakra-ui/next-js";
 import { FcTodoList } from "react-icons/fc";
 import { IoPersonAddSharp } from "react-icons/io5";
-import { BiSolidLogIn } from "react-icons/bi";
+import { BiSolidLogIn, BiSolidLogOut } from "react-icons/bi";
 import { FaHome } from "react-icons/fa";
 import { IoMdMenu } from "react-icons/io";
+import { GiThreeFriends } from "react-icons/gi";
 
 function DrawerComponent() {
   const pathname = usePathname();
@@ -55,6 +56,8 @@ function DrawerComponent() {
               flexDir="column"
               justifyContent="center"
             >
+              {(pathname === "/" || pathname === "/login" || pathname === "/register") && (
+                <>
               <Link
                 href="/"
                 color="blue.500"
@@ -97,6 +100,10 @@ function DrawerComponent() {
                 <IoPersonAddSharp />
                 Register
               </Link>
+              </>
+              )}
+              {(pathname === "/tasks" || pathname === "/friends" || pathname === "/logout") && (
+                <>
               <Link
                 href="/tasks"
                 color="blue.500"
@@ -111,6 +118,39 @@ function DrawerComponent() {
                 <FcTodoList />
                 Tasks
               </Link>
+              <Link
+                href="/friends"
+                color="blue.500"
+                _hover={{ color: "blue.600" }}
+                onClick={onClose}
+                display="flex"
+                alignItems="center"
+                gap={2}
+                bg={pathname === "/friends" ? "teal.100" : ""}
+                borderRadius="10px"
+              >
+                <GiThreeFriends />
+                Friends
+              </Link>
+              <Link
+                href="/logout"
+                color="blue.500"
+                _hover={{ color: "blue.600" }}
+                onClick={onClose}
+                display="flex"
+                alignItems="center"
+                gap={2}
+                bg={pathname === "/logout" ? "teal.100" : ""}
+                borderRadius="10px"
+              >
+                <BiSolidLogOut />
+                Logout
+              </Link>
+
+
+
+              </>
+  )}
             </Box>
           </DrawerBody>
         </DrawerContent>

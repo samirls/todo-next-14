@@ -20,50 +20,62 @@ import React, { useState } from "react";
 import { IoMdAddCircle } from "react-icons/io";
 import { addFriend } from "@/app/lib/actions";
 import { ChangeEvent, FormEvent } from "react";
-import { useMediaQuery } from '@chakra-ui/react'
+import { useMediaQuery } from "@chakra-ui/react";
 
 interface AddFriendModalProps {
   userId: number | undefined;
 }
 
-function AddFriendModal({userId}:AddFriendModalProps) {
-
-  const [isLargerThan800] = useMediaQuery('(min-width: 992px)')
+function AddFriendModal({ userId }: AddFriendModalProps) {
+  const [isLargerThan800] = useMediaQuery("(min-width: 992px)");
   const initialRef = React.useRef(null);
   const finalRef = React.useRef(null);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [isLoading, setIsLoading] = useState(false);
-  const [addedFriendId, setAddedFriendId] = useState('');
+  const [addedFriendId, setAddedFriendId] = useState("");
   const toast = useToast();
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
+    try {
+      if (addedFriendId === "") {
+        return toast({
+          title: "Insert the Id of your friend, must be a number",
+          position: "top",
+          status: "error",
+          duration: 4000,
+          isClosable: true,
+        });
+      }
 
-    if (addedFriendId === "") {
-      return toast({
-        title: "Insert the Id of your friend, must be a number",
+      const addedFriendIdAsNumber = parseInt(addedFriendId);
+
+      if (isNaN(addedFriendIdAsNumber)) {
+        return toast({
+          title: "Invalid Id format. Please enter a valid number.",
+          position: "top",
+          status: "error",
+          duration: 4000,
+          isClosable: true,
+        });
+      }
+
+      setIsLoading(true);
+      await addFriend(userId, addedFriendIdAsNumber);
+      setIsLoading(false);
+      setAddedFriendId("");
+      toast({
+        title: "Friend Added!",
         position: "top",
-        status: "error",
+        description: "Add another one.",
+        status: "success",
         duration: 4000,
         isClosable: true,
       });
+      onClose();
+    } catch (error) {
+      console.log(error);
     }
-
-    const addedFriendIdAsNumber = parseInt(addedFriendId);
-
-    setIsLoading(true);
-    await addFriend(userId, addedFriendIdAsNumber);
-    setIsLoading(false);
-    setAddedFriendId("");
-    toast({
-      title: "Friend Added!",
-      position: "top",
-      description: "Add another one.",
-      status: "success",
-      duration: 4000,
-      isClosable: true,
-    });
-    onClose();
   };
 
   return (
@@ -82,7 +94,7 @@ function AddFriendModal({userId}:AddFriendModalProps) {
         isOpen={isOpen}
         onClose={onClose}
         isCentered
-        size={isLargerThan800 ? 'xl' : 'xs'}
+        size={isLargerThan800 ? "xl" : "xs"}
       >
         <ModalOverlay />
         <ModalContent>
@@ -93,7 +105,9 @@ function AddFriendModal({userId}:AddFriendModalProps) {
               <FormLabel>Id:</FormLabel>
               <Input
                 ref={initialRef}
-                onChange={(e) => {setAddedFriendId(e.target.value)}}
+                onChange={(e) => {
+                  setAddedFriendId(e.target.value);
+                }}
               />
             </FormControl>
           </ModalBody>

@@ -118,7 +118,7 @@ export async function addFriend(user_id: number | undefined, added_friend_id: nu
   `;
   } catch (error) {
     return {
-      message: "Database Error. Failed to insert task.",
+      message: "Database Error. Failed to add friend.",
     };
   }
   revalidatePath("/friends");
