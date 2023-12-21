@@ -1,16 +1,15 @@
 "use client";
 
 import { Link } from "@chakra-ui/next-js";
-import { Box, Button } from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
+import { Box } from "@chakra-ui/react";
+import React from "react";
 import DrawerComponent from "./DrawerComponent";
 import { FcTodoList } from "react-icons/fc";
-import { auth } from "@/auth";
-import { usePathname } from "next/navigation";
+//import { usePathname } from "next/navigation";
 
 function Topnav() {
 
-  const pathname = usePathname();
+  //const pathname = usePathname();
 
   return (
     <Box
