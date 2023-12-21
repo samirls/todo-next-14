@@ -56,101 +56,102 @@ function DrawerComponent() {
               flexDir="column"
               justifyContent="center"
             >
-
+              {(pathname === "/" ||
+                pathname === "/login" ||
+                pathname === "/register") && (
                 <>
-              <Link
-                href="/"
-                color="blue.500"
-                _hover={{ color: "blue.600" }}
-                onClick={onClose}
-                display="flex"
-                alignItems="center"
-                gap={2}
-                bg={pathname === "/" ? "teal.100" : ""}
-                borderRadius="10px"
-              >
-                <FaHome />
-                Home
-              </Link>
-              <Link
-                href="/login"
-                color="blue.500"
-                _hover={{ color: "blue.600" }}
-                onClick={onClose}
-                display="flex"
-                alignItems="center"
-                gap={2}
-                bg={pathname === "/login" ? "teal.100" : ""}
-                borderRadius="10px"
-              >
-                <BiSolidLogIn />
-                Login
-              </Link>
-              <Link
-                href="/register"
-                color="blue.500"
-                _hover={{ color: "blue.600" }}
-                onClick={onClose}
-                display="flex"
-                alignItems="center"
-                gap={2}
-                bg={pathname === "/register" ? "teal.100" : ""}
-                borderRadius="10px"
-              >
-                <IoPersonAddSharp />
-                Register
-              </Link>
-              </>
-
-
+                  <Link
+                    href="/"
+                    color="blue.500"
+                    _hover={{ color: "blue.600" }}
+                    onClick={onClose}
+                    display="flex"
+                    alignItems="center"
+                    gap={2}
+                    bg={pathname === "/" ? "teal.100" : ""}
+                    borderRadius="10px"
+                  >
+                    <FaHome />
+                    Home
+                  </Link>
+                  <Link
+                    href="/login"
+                    color="blue.500"
+                    _hover={{ color: "blue.600" }}
+                    onClick={onClose}
+                    display="flex"
+                    alignItems="center"
+                    gap={2}
+                    bg={pathname === "/login" ? "teal.100" : ""}
+                    borderRadius="10px"
+                  >
+                    <BiSolidLogIn />
+                    Login
+                  </Link>
+                  <Link
+                    href="/register"
+                    color="blue.500"
+                    _hover={{ color: "blue.600" }}
+                    onClick={onClose}
+                    display="flex"
+                    alignItems="center"
+                    gap={2}
+                    bg={pathname === "/register" ? "teal.100" : ""}
+                    borderRadius="10px"
+                  >
+                    <IoPersonAddSharp />
+                    Register
+                  </Link>
+                </>
+              )}
+              {(pathname === "/tasks" ||
+                pathname === "/friends" ||
+                pathname === "/logout") && (
                 <>
-              <Link
-                href="/tasks"
-                color="blue.500"
-                _hover={{ color: "blue.600" }}
-                onClick={onClose}
-                display="flex"
-                alignItems="center"
-                gap={2}
-                bg={pathname === "/tasks" ? "teal.100" : ""}
-                borderRadius="10px"
-              >
-                <FcTodoList />
-                Tasks
-              </Link>
-              <Link
-                href="/friends"
-                color="blue.500"
-                _hover={{ color: "blue.600" }}
-                onClick={onClose}
-                display="flex"
-                alignItems="center"
-                gap={2}
-                bg={pathname === "/friends" ? "teal.100" : ""}
-                borderRadius="10px"
-              >
-                <GiThreeFriends />
-                Friends
-              </Link>
-              <Link
-                href="/logout"
-                color="blue.500"
-                _hover={{ color: "blue.600" }}
-                onClick={onClose}
-                display="flex"
-                alignItems="center"
-                gap={2}
-                bg={pathname === "/logout" ? "teal.100" : ""}
-                borderRadius="10px"
-              >
-                <BiSolidLogOut />
-                Logout
-              </Link>
-
-
-
-              </>
-
+                  <Link
+                    href="/tasks"
+                    color="blue.500"
+                    _hover={{ color: "blue.600" }}
+                    onClick={onClose}
+                    display="flex"
+                    alignItems="center"
+                    gap={2}
+                    bg={pathname === "/tasks" ? "teal.100" : ""}
+                    borderRadius="10px"
+                  >
+                    <FcTodoList />
+                    Tasks
+                  </Link>
+                  <Link
+                    href="/friends"
+                    color="blue.500"
+                    _hover={{ color: "blue.600" }}
+                    onClick={onClose}
+                    display="flex"
+                    alignItems="center"
+                    gap={2}
+                    bg={pathname === "/friends" ? "teal.100" : ""}
+                    borderRadius="10px"
+                  >
+                    <GiThreeFriends />
+                    Friends
+                  </Link>
+                  <Link
+                    href="/logout"
+                    color="blue.500"
+                    _hover={{ color: "blue.600" }}
+                    onClick={onClose}
+                    display="flex"
+                    alignItems="center"
+                    gap={2}
+                    bg={pathname === "/logout" ? "teal.100" : ""}
+                    borderRadius="10px"
+                  >
+                    <BiSolidLogOut />
+                    Logout
+                  </Link>
+                </>
+              )}
             </Box>
           </DrawerBody>
         </DrawerContent>
