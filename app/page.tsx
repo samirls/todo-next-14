@@ -62,7 +62,7 @@ export default function Home() {
           </ListItem>
           <ListItem>
             <ListIcon as={MdCheckCircle} color="green.500" />
-            Add Friends to the App so they can read, write, or delete Tasks.
+            Add Friends to the App so they can read, edit, or delete Tasks.
           </ListItem>
           <ListItem>
             <ListIcon as={MdCheckCircle} color="green.500" />
