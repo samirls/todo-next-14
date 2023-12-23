@@ -108,7 +108,7 @@ function ShareTaskModal({ task, friends, isOpen, onClose }: TaskProps) {
     >
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>Share this task with one or more friends</ModalHeader>
+        <ModalHeader>Share this task with a friend</ModalHeader>
         <ModalCloseButton />
         <ModalBody pb={6}>
           {friends.length === 0 ? (

@@ -82,7 +82,7 @@ function Task({ task, friends, fetchedLinkTable }: TaskProps) {
           </Box> {sharedUsers.length === 0 ? (
             "Not shared"
           ) : (
-            <>Shared to users: <Box as="span" fontWeight={500}>{sharedUsers.join(", ").toUpperCase()}</Box></>
+            <>Shared to user: <Box as="span" fontWeight={500}>{sharedUsers.join(", ").toUpperCase()}</Box></>
           ) }
         </Box>
       </Box>
