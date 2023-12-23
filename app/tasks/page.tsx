@@ -23,13 +23,9 @@ async function Tasks() {
 
   const fetchedTasks = await fetchTasks(allUserData?.user_id);
 
-  console.log(fetchedTasks)
-
   ///////////////////////////////////////////////////////////////////////////
 
   const fetchedFriends = await fetchFriends(allUserData?.user_id);
-
-  console.log(fetchedFriends)
 
 
   ///////////////////////////////////////////////////////////////////////////
@@ -37,8 +33,6 @@ async function Tasks() {
   const fetchedTasksIds = fetchedTasks.map((task) => task.task_id);
 
   const fetchedLinkTable = await fetchLinkTable(fetchedTasksIds)
-
-  console.log(fetchedLinkTable)
 
 
   return (

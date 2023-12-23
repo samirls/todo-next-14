@@ -27,33 +27,45 @@ function Login() {
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
+    try {
+      if (email === "" || password === "") {
+        return toast({
+          title: "Enter your e-mail and password",
+          position: "top",
+          status: "error",
+          duration: 5000,
+          isClosable: true,
+        });
+      }
 
-    if (email === "" || password === "") {
-      return toast({
-        title: "Enter your e-mail and password",
+      setIsLoading(true);
+      await authenticate({ email, password });
+      setIsLoading(false);
+
+
+      setEmail("");
+      setPassword("");
+      toast({
+        title: "You are logged in!",
+        position: "top",
+        status: "success",
+        duration: 4000,
+        isClosable: true,
+      });
+      router.push("/tasks");
+    } catch (error) {
+      setIsLoading(false);
+      toast({
+        title: "Error",
+        description: `${error}`,
         position: "top",
         status: "error",
         duration: 5000,
         isClosable: true,
       });
+      console.log(error);
     }
-
-    setIsLoading(true);
-    await authenticate({email, password});
-    setIsLoading(false);
-
-    setEmail("");
-    setPassword("");
-    toast({
-      title: "You are logged in!",
-      position: "top",
-      status: "success",
-      duration: 4000,
-      isClosable: true,
-    });
-    router.push("/tasks")
   };
-
 
   return (
     <Box
@@ -81,7 +93,7 @@ function Login() {
                   name="email"
                   id="email"
                   bg="white"
-                  onChange={(e) => setEmail(e.target.value) }
+                  onChange={(e) => setEmail(e.target.value)}
                   value={email}
                 />
               </FormControl>

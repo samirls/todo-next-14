@@ -19,8 +19,6 @@ function Friend({friend, loggedUserId}:FriendProps) {
 
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  console.log(friend)
-
   return (
 
     <Box

@@ -24,7 +24,6 @@ async function Friends() {
 
   const fetchedFriends = await fetchFriends(allUserData?.user_id);
 
-  console.log(fetchedFriends)
 
   return (
     <Box

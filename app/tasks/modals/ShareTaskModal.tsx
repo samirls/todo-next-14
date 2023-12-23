@@ -50,9 +50,6 @@ function ShareTaskModal({ task, friends, isOpen, onClose }: TaskProps) {
   const [selectedFriends, setSelectedFriends] = useState<singleFriend[]>([]);
   const toast = useToast();
 
-  console.log(task)
-  console.log(friends);
-
   const selectSingleFriend = (event:  ChangeEvent<HTMLSelectElement>) => {
     const selectedUserId = parseInt(event.target.value);
     const selectedFriend = friends.find(
@@ -70,8 +67,6 @@ function ShareTaskModal({ task, friends, isOpen, onClose }: TaskProps) {
     );
     setSelectedFriends(updatedFriends);
   }
-
-  console.log(selectedFriends)
 
   const handleSubmit = async () => {
     try {

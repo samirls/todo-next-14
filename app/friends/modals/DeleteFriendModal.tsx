@@ -35,14 +35,12 @@ function DeleteFriendModal({isOpen, onClose, friend, loggedUserId}:FriendProps) 
   const [isLoading, setIsLoading] = useState(false);
   const toast = useToast();
 
-  console.log(friend)
-
   const handleDeleteTask = async () => {
     setIsLoading(true)
     await deleteFriend(loggedUserId, friend.user_id);
     setIsLoading(false)
     toast({
-      title: 'Task Deleted!',
+      title: 'Friend Deleted!',
       position: 'top',
       status: 'success',
       duration: 4000,

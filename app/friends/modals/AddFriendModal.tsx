@@ -74,6 +74,15 @@ function AddFriendModal({ userId }: AddFriendModalProps) {
       });
       onClose();
     } catch (error) {
+      setIsLoading(false);
+      toast({
+        title: "Error",
+        description: `Error: ${error}`,
+        position: "top",
+        status: "error",
+        duration: 4000,
+        isClosable: true,
+      });
       console.log(error);
     }
   };

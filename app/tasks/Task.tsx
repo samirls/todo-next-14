@@ -48,10 +48,6 @@ function Task({ task, friends, fetchedLinkTable }: TaskProps) {
     onClose: onShareModalClose,
   } = useDisclosure();
 
-  console.log(task);
-  console.log(friends);
-  console.log(fetchedLinkTable);
-
   const shouldRenderShareButton = () => {
     const taskIdsInLinkTable = fetchedLinkTable.map(
       (link) => link.task_id_link
@@ -62,8 +58,6 @@ function Task({ task, friends, fetchedLinkTable }: TaskProps) {
   const sharedUsers = fetchedLinkTable
   .filter((link) => link.task_id_link === task.task_id)
   .map((link) => link.name);
-
-  console.log(sharedUsers)
 
   return (
     <Box

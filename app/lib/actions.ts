@@ -2,28 +2,26 @@
 import { sql } from "@vercel/postgres";
 import { revalidatePath } from "next/cache";
 import { signIn } from '@/auth';
-import { AuthError } from 'next-auth';
 import bcrypt from 'bcrypt';
+import { AuthError } from 'next-auth';
 import { redirect } from 'next/navigation';
 
 export async function authenticate( { email, password }: { email: string, password: string } ) {
+
   try {
     await signIn('credentials', { email, password, redirect: false });
+
   } catch (error) {
     if (error instanceof AuthError) {
       switch (error.type) {
         case 'CredentialsSignin':
-          return 'Invalid credentials.';
+          throw new Error('Invalid credentials.');
         default:
-          return 'Something went wrong.';
+          throw new Error('Something went wrong.');
       }
     }
     throw error;
   }
-}
-
-export async function redirectServerFunction() {
-  redirect('/');
 }
 
 
@@ -48,8 +46,6 @@ export async function register(name: string, email: string, password: string, se
 
 
 export async function createTask(task: string, user_id: number | undefined | null) {
-  //throw new Error('Failed on purpose');
-
   try {
     await sql`
     INSERT INTO todo_tasks (task, user_id)
@@ -117,9 +113,7 @@ export async function addFriend(user_id: number | undefined, added_friend_id: nu
     VALUES (${user_id}, ${added_friend_id});
   `;
   } catch (error) {
-    return {
-      message: "Database Error. Failed to add friend.",
-    };
+    throw new Error(`Error: ${error}`);
   }
   revalidatePath("/friends");
 }
