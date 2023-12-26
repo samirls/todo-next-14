@@ -1,16 +1,24 @@
 import React from "react";
-import { signOut } from "@/auth";
+import { auth, signOut } from "@/auth";
 import { Button } from "@chakra-ui/react";
 import { redirect } from "next/navigation";
 
 async function Logout() {
 
+  const handleLogout = async () => {
+    "use server";
+    await signOut();
+    redirect('/'); //not working
+  }
+
+  const session = await auth();
+
+  !session?.user && redirect('/') 
+
+
   return (
     <form
-       action={async () => {
-        "use server";
-        await signOut();
-      }} 
+      action={handleLogout} 
       style={{display: 'flex', justifyContent: 'center'}}
     >
       <Button type="submit">
