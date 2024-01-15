@@ -64,7 +64,6 @@ function Task({ task, friends, fetchedLinkTable }: TaskProps) {
       display="flex"
       justifyContent="space-between"
       alignItems="center"
-      height="60px"
       mx={{ base: "10px", lg: "100px" }}
       px={{ base: "5px", lg: "15px" }}
       boxShadow="md"
@@ -74,8 +73,10 @@ function Task({ task, friends, fetchedLinkTable }: TaskProps) {
       mb="15px"
     >
       <Box>
-        <Box fontSize={{ base: "1rem", lg: "1.2rem" }}>{task.task}</Box>
-        <Box fontSize={{ base: "0.8rem", lg: "1rem" }} color="gray.500">
+        <Box fontSize={{ base: "1rem", lg: "1.2rem" }}>
+          {task.task}
+        </Box>
+        <Box fontSize={{ base: "0.7rem", lg: "1rem" }} color="gray.400">
           Created by user{" "}
           <Box as="span" fontWeight={500}>
             {task?.task_user_name.toUpperCase()}.
@@ -90,6 +91,7 @@ function Task({ task, friends, fetchedLinkTable }: TaskProps) {
         display="flex"
         gap={{ base: 1, lg: 6 }}
         fontSize={{ base: "1rem", lg: "1.2rem" }}
+        flexDirection={{ base: "column", lg: "row" }}
       >
         {shouldRenderShareButton() && (
           <Button colorScheme="teal" onClick={onShareModalOpen} size="sm">
